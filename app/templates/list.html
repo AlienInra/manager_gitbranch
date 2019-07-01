@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="display: flex; justify-content: flex-start;">
+            <div  style="margin-left: 10%;width:50%;color: white;">
+                <table class="table table-hover">
+                    <tr>
+                        <td>模块名</td>
+                        <td>目标分支</td>
+                        <td>基于分支</td>
+                        <td>情况</td>
+                    </tr>
+                    {% for i in data %}
+                        <tr>
+                            <td>{{ i.model_name }}</td>
+                            <td>{{ i.to_branch }}</td>
+                            <td>{{ i.base_name }}</td>
+                            <td>{{ i.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        <div style="margin-left: 20px">
+            <form method="post">
+                {{ form.csrf_token }}
+                {{ form.submit }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

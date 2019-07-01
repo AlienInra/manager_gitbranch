@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> 提交成功 </h4>
+            {{ msg }}
+        </div>
+    {% endfor %}
+    {% for msg in get_flashed_messages(category_filter=["err"]) %}
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> 提交失败 </h4>
+            {{ msg }}
+        </div>
+    {% endfor %}
+    <form method="post" class="form-horizontal" autocomplete="off">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="ds_host" style="color: white">基于分支名称</label>
+                <div class="col-sm-4">
+                    {{ form.branch_base }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="ds_host" style="color: white">目标分支名称</label>
+                <div class="col-sm-4">
+                    {{ form.branch_to }}
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-sm-2 control-label" for="ds_host" style="color: white">保护分支类型</label>
+                <div class="col-sm-4">
+
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="ds_host" style="color: white">选择模块名称</label>
+                <div class="col-sm-4">
+                    <div style="display: flex; justify-content: flex-start;">
+                        {{ form.model }}
+                        <div>
+                            {{ form.csrf_token }}
+                            {{ form.submit }}
+                        </div>
+                        <div>
+                            <a href="{{ url_for('web.branch_add') }}" class="btn btn-default">增加模块</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div style="margin-left: 11%">
+        {% for log in log_list %}
+        <b style="color: white;">{{ log }}</b><br>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
